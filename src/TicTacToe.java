@@ -8,15 +8,45 @@ public class TicTacToe {
 
 	public JButton[] buttons = new JButton[9];
 	protected JButton reset = new JButton();
-	protected JFrame frame = new JFrame();
+	private JFrame frame = new JFrame();
 	private JPanel topPane = new JPanel();
 	private JPanel bottomPane = new JPanel();
 	protected JLabel textfield = new JLabel();
 	private JLabel timerlabel = new JLabel("Time Remaining This Turn: 15");
 	private int time = 15;
     private boolean p1flag;
+    
+    // New variables for version 2
+    private int m;
+    private int n;
+    private int k;
 
-	public TicTacToe(){
+    
+    
+    public static void NewScreen() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TicTacToe window = null;
+					window.frame.setVisible(false);
+				} catch (NullPointerException e) {
+					System.out.println("");
+				}
+			}
+		});
+	}
+	
+	public TicTacToe(int m, int n, int k) {
+		this.m = m;
+		this.n = n;
+		this.k = k;
+		initialize();
+	}
+
+	public void initialize() {
+		
+
+		System.out.println(m + " " + n + " " + k + " " + Menu.aiorpvp);
 		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(500,500);
@@ -99,8 +129,8 @@ public class TicTacToe {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				Main.main(null);
-				//TicTacToe t = new TicTacToe();
+				//Main.main(null);
+				TicTacToe t = new TicTacToe(m, n, k);
 			}
 		});		
 		
