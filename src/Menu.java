@@ -37,7 +37,7 @@ public class Menu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				aiorpvp = "pvp";
-				frame.hide(); // hide is deprecated but still works for now.
+				frame.dispose(); // hide is deprecated but still works for now.
 				Options op = new Options();
 				op.NewScreen();
 			}
@@ -47,7 +47,7 @@ public class Menu {
 		aiTTT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aiorpvp = "ai";
-				frame.hide(); // hide is deprecated but still works for now.
+				frame.dispose(); // hide is deprecated but still works for now.
 				Options op = new Options();
 				op.NewScreen();
 			}

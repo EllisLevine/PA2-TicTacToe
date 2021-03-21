@@ -96,7 +96,7 @@ public class Options extends JFrame {
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.hide(); // hide is deprecated but still works for now.
+				frame.dispose(); // hide is deprecated but still works for now.
 				int m = Integer.parseInt(MText.getText());
 				int n = Integer.parseInt(KText.getText());
 				int k = Integer.parseInt(NText.getText());
