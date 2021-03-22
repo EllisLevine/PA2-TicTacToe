@@ -100,8 +100,15 @@ public class Options extends JFrame {
 				int m = Integer.parseInt(MText.getText());
 				int n = Integer.parseInt(KText.getText());
 				int k = Integer.parseInt(NText.getText());
-				TicTacToe t = new TicTacToe(m, n, k);
-				t.NewScreen();
+				if (Menu.aiorpvp.equals("pvp")) {
+					TicTacToe t = new TicTacToe(m, n, k);
+					t.NewScreen();
+				}
+				if (Menu.aiorpvp.equals("ai")) {
+					AITicTacToe ait = new AITicTacToe(m, n, k);
+					ait.NewScreen();
+				}
+				
 
 			}
 		});
