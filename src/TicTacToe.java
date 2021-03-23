@@ -258,7 +258,7 @@ public class TicTacToe {
 	}
 
 
-	private boolean isMultiple(int val, int increment, int offset) //returns true if val + offset is a multiple of increment
+	protected boolean isMultiple(int val, int increment, int offset) //returns true if val + offset is a multiple of increment
 	{
 		for(int i = 0; i < (m*n); i = i+increment)
 		{
@@ -278,9 +278,10 @@ public class TicTacToe {
 		for (int i = 0; i < m*n; i++) {
 			buttons[i].setText("");
 		}
+
 	}
 	
-	private int scaleButton() 
+	protected int scaleButton() 
 	{
 		if (m <= 3 && n <= 3) {
 			return 120;
@@ -288,8 +289,8 @@ public class TicTacToe {
 		else if (m <= 5 && n <= 5) {
 			return 60;
 		}
-		else if (m <= 7 && n <= 7) {
-			return 30;
+		else if (m <= 9 && n <= 9) {
+			return 20;
 		}
 		else {
 			return 12;
