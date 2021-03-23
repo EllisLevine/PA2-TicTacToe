@@ -8,6 +8,7 @@ public class TicTacToe {
 
 	public JButton[] buttons = new JButton[100];
 	protected JButton reset = new JButton();
+	protected JButton returnToMenu = new JButton();
 	private JFrame frame = new JFrame();
 	private JPanel topPane = new JPanel();
 	private JPanel bottomPane = new JPanel();
@@ -56,7 +57,9 @@ public class TicTacToe {
 
 		topPane.add(textfield);
 		topPane.add(reset);
+		
 		reset.setText("RESET");
+		returnToMenu.setText("Return to Menu");
 		textfield.setText("X's Turn");
 		topPane.add(timerlabel);
 		bottomPane.setLayout(new GridLayout(m,n));
@@ -87,8 +90,9 @@ public class TicTacToe {
 		});
 		for(int i=0;i<m*n;i++) {
 			buttons[i] = new JButton();
-			bottomPane.add(buttons[i]);
-			buttons[i].setFont(new Font("Sans-Serif" ,Font.BOLD,120));
+			bottomPane.add(buttons[i]);		
+			int fontsize = scaleButton();
+			buttons[i].setFont(new Font("Sans-Serif" ,Font.BOLD,fontsize)); //make function for just last varibale
 			buttons[i].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -135,13 +139,20 @@ public class TicTacToe {
 			@Override 
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				//Main.main(null);
 				TicTacToe t = new TicTacToe(m, n, k);
 			}
 		});		
+		returnToMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Main.main(null);
+			}
+		});
 
 		topPane.add(textfield);
 		topPane.add(reset);
+		topPane.add(returnToMenu);
 		t.start();
 
 	}
@@ -267,6 +278,23 @@ public class TicTacToe {
 		for (int i = 0; i < m*n; i++) {
 			buttons[i].setText("");
 		}
+	}
+	
+	private int scaleButton() 
+	{
+		if (m <= 3 && n <= 3) {
+			return 120;
+		}
+		else if (m <= 5 && n <= 5) {
+			return 60;
+		}
+		else if (m <= 7 && n <= 7) {
+			return 30;
+		}
+		else {
+			return 12;
+		}
+		
 	}
 
 
