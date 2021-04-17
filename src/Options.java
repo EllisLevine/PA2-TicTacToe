@@ -21,6 +21,8 @@ public class Options extends JFrame {
 	private JTextField NText;
 	private JTextField KText;
 	public static String player;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -94,7 +96,19 @@ public class Options extends JFrame {
 		frame.getContentPane().add(KText);
 		KText.setColumns(10);
 
-		JButton btnNewButton = new JButton("Submit");
+		//JButton btnNewButton = new JButton("Submit");
+		JButton btnNewButton = null;
+		if(Menu.season == 1) {
+			 btnNewButton = AbstractButtonFactory.getButtonFactory(ButtonType.WINTER);
+		}
+		else if (Menu.season == 2) {
+			btnNewButton = AbstractButtonFactory.getButtonFactory(ButtonType.SUMMER);
+		}
+		else {
+			btnNewButton = new JButton();
+		}
+		
+		btnNewButton.setText("Submit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose(); // hide is deprecated but still works for now.
