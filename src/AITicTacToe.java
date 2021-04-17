@@ -428,8 +428,8 @@ public class AITicTacToe {
 		else if (m <= 5 && n <= 5) {
 			return 60;
 		}
-		else if (m <= 7 && n <= 7) {
-			return 30;
+		else if (m <= 9 && n <= 9) {
+			return 20;
 		}
 		else {
 			return 12;
