@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 import javax.swing.*;
-import javax.swing.Timer;
 
 public class AITicTacToe {
 
@@ -89,8 +88,17 @@ public class AITicTacToe {
 			}
 		});
 		for(int i=0;i<m*n;i++) {
-			buttons[i] = new JButton();
-			bottomPane.add(buttons[i]);		
+			if(Menu.season == 1) {
+				 buttons[i] = AbstractButtonFactory.getButtonFactory(ButtonType.WINTER);
+			}
+			else if (Menu.season == 2) {
+				buttons[i] = AbstractButtonFactory.getButtonFactory(ButtonType.SUMMER);
+			}
+			else {
+				buttons[i] = new JButton();
+			}
+			//buttons[i] = new JButton();
+			bottomPane.add(buttons[i]);			
 			int fontsize = scaleButton();
 			buttons[i].setFont(new Font("Sans-Serif" ,Font.BOLD,fontsize)); //make function for just last varibale
 			buttons[i].addActionListener(new ActionListener() {
