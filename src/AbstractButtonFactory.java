@@ -8,14 +8,12 @@ public abstract class AbstractButtonFactory {
 		JButton btnFact = null;
 		switch (bt) {
 		case WINTER:
-			System.out.println("Winter opened");
 			btnFact = new JButton();
 			btnFact.setBackground(new Color(59,89,182));
 			btnFact.setForeground(Color.WHITE);
 			btnFact.setFocusPainted(false);
 			break;
 		case SUMMER: 
-			System.out.println("Summer opened");
 			btnFact = new JButton();
 			btnFact = new JButton();
 			btnFact.setBackground(new Color(50,205,50));

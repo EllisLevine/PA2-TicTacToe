@@ -21,8 +21,9 @@ public class AITicTacToe {
     private int n;
     private int k;
     private int winIndex = -1; //if not -1, a winning move has been found and is stored in this var for the AI to block
-    private int winIndexAI = -1; //if not -1, a winning move for the AI has been found and the AI will play it to win if empty
-
+    private int nextIndexAI = -1; //if not -1, a next move for the AI is found
+    private int previousMove = -1; //player's previous move
+    private int previousAIMove = -1; //AI's previous move
     public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -112,7 +113,7 @@ public class AITicTacToe {
 								buttons[i].setText("X");
 								p1flag=true;
 								textfield.setText("X's turn");
-								boolean check = checkForWinner(i,"X", true);
+								boolean check = checkForWinner(i,"X", true, k);
 								if (check)
 								{
 									textfield.setText("X WINS");
@@ -121,7 +122,9 @@ public class AITicTacToe {
 								}
 								else
 								{	
-									if(checkForWinner(AIMove(), "O", false))
+									System.out.println("O's Turn:");
+									int aiIndex = AIMove();
+									if(checkForWinner(aiIndex, "O", false, k))
 									{
 										textfield.setText("O (Computer) WINS");
 										endGame();
@@ -161,34 +164,55 @@ public class AITicTacToe {
 	}
 
 	/*
-	 * If the winIndexAI is not -1, play it to win. 
+	 * AIv2
 	 * If the winIndex is not -1, play it to block the player's win
-	 * Otherwise (first move) play a random empty square
-	 * Run checkForWinner() with AI flag
-	 * It's more efficient to store and check for played moves rather than check the whole array for empties
-	 * 
-	 * next version: run checkforWInner with a k of 1 more than ai's kcount to find next move
+	 * Otherwise start forming a tuple (k in a row)
+	 * First move is a tuple-block of player's first move	
 	 */
+	int tupleMove = -1;
+	int l = 2;
 	private int AIMove()
 	{
 		int moveIndex = -1;
-		if(winIndexAI != -1)
+		if(winIndex != -1) //block a player's winning move, the only case where l does not increase
 		{
-			moveIndex = winIndexAI;
-		}
-		else if(winIndex != -1)
-		{
+			System.out.println("Block");
 			moveIndex = winIndex;
+			winIndex = -1;
+			//previousAIMove = moveIndex;
 		}
-		else //random between 0 and m*n, if != "" try again
+		else if(previousAIMove == -1) //first move; check for a 2-tuple that can be made from the player's first move for blocking
 		{
-			Random randMove = new Random();
-			moveIndex = randMove.nextInt((m*n));
-			while(!(buttons[moveIndex].getText().equals("")))
+			System.out.println("first move");
+			checkForWinner(previousMove, "X", false, 2);
+			moveIndex = nextIndexAI;
+			tupleMove = moveIndex;
+		}
+		else //if nextMove is available, play it and increment l by 
+		{//if i tuple move is sucessful l may be increased
+			int check = nextIndexAI;
+			checkForWinner(tupleMove, "O", false, ++l);
+			if (nextIndexAI == check)
 			{
+				checkForWinner(tupleMove, "O", false, 2);
+			}
+			if(buttons[nextIndexAI].getText().equals(""))
+			{
+				System.out.println("tuple formation, index: " + nextIndexAI);
+				moveIndex = nextIndexAI;
+				tupleMove = moveIndex;
+			}
+			else {
+				Random randMove = new Random();
 				moveIndex = randMove.nextInt((m*n));
+				while(!(buttons[moveIndex].getText().equals("")))
+				{
+					moveIndex = randMove.nextInt((m*n));
+				}
 			}
 		}
+		
+		//all k checkForWinner will be done in caller
 		System.out.println("O Moves: " + moveIndex);
 		buttons[moveIndex].setText("O");
 		return moveIndex;
@@ -196,10 +220,12 @@ public class AITicTacToe {
 	}
 	
 	//needs a boolean parameter to indicate AI or player
-	protected boolean checkForWinner(int index, String s, boolean player) //int index s is X or O
+	protected boolean checkForWinner(int index, String s, boolean player, int k) //int index s is X or O
 	{
-		//winIndex = -1;   //	DELET THOS
-		System.out.println(s+ "turn");
+		if(player == true){previousMove = index;}
+		else{previousAIMove = index;}
+		
+		//winIndex = -1;   //	
 		//Checking for solution involves checking for horizontal, vertical, or diagonal k-tuples
 		//If a row end, column end, or opponent/empty square is encountered, searching stops in that direction
 		//A count is kept for each of the three types. If it reaches k, a win is found
@@ -250,7 +276,7 @@ public class AITicTacToe {
 			}
 			else if (player == false)
 			{
-				winIndexAI = openSquare;
+				nextIndexAI = openSquare;
 			}
 		}
 		if(kcount == k) {return true;}
@@ -291,7 +317,7 @@ public class AITicTacToe {
 			}
 			else if (player == false)
 			{
-				winIndexAI = openSquare;
+				nextIndexAI = openSquare;
 			}
 		}
 		if(kcount == k) {return true;}
@@ -347,7 +373,7 @@ public class AITicTacToe {
 			}
 			else if (player == false)
 			{
-				winIndexAI = openSquare;
+				nextIndexAI = openSquare;
 			}
 		}
 		if(kcount == k) {return true;}
@@ -401,7 +427,7 @@ public class AITicTacToe {
 			}
 			else if (player == false)
 			{
-				winIndexAI = openSquare;
+				nextIndexAI = openSquare;
 			}
 		}
 		if(kcount == k) {return true;}
