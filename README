@@ -1,0 +1,14 @@
+External Dependencies: Java 1.8, JavaSE-14, Windows 7, 8, or 10.
+
+Eclipse run configurations: Clone projects through Eclipse by using
+	File > Import > Git > Projects from Git > Clone URL > use URL https://github.com/EllisLevine/TicTacToe and choose a repository
+	
+Project Strengths: 
+	Very strong and competitive AI, 
+	Robust program that does not break easily due to its simplicity,
+ 	Easy to use User interface
+ 	
+Project Weaknesses: 
+	Lack of Test Coverage,
+	Not an aesthetically pleasing design,
+	Inability for user to set a customer timer or choose if they want to be X or O
